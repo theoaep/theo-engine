@@ -1,25 +1,29 @@
 TheoEngine - install help (Windows + After Effects)
 ======================================================
 
-EASY WAY
---------
-1. Go to the main TheoEngine folder.
-2. Double-click:
-     INSTALL THEOENGINE.bat
-3. If Windows SmartScreen appears, verify the package came from:
-     https://github.com/theoaep/theo-engine/releases
-   Choose More info > Run anyway only if you trust the verified package.
-   The installer is unsigned, so SmartScreen may still display a warning.
-4. The branded installer asks:
-     Install TheoEngine for After Effects? [Y/N]
-5. Choose Y to install the panel. It enables Adobe CEP PlayerDebugMode
-   for CSXS 9-12 because this is an unsigned CEP extension.
-6. Fully restart After Effects and open:
-     Window > Extensions > TheoEngine
+EASY WAY — WINDOWS FILE COPY INSTALLER
+--------------------------------------
+1. Double-click INSTALL THEOENGINE.bat.
+2. The installer copies only the extension files to:
+     %APPDATA%\Adobe\CEP\extensions\com.theo.engine
+3. It does not change the registry, download software, or require admin.
+4. Restart After Effects and open Window > Extensions > TheoEngine.
 
-Keep the complete downloaded folder together. The launcher needs both the
-installer and extension folders beside it. No browser or external software is
-installed.
+If After Effects does not show an unsigned CEP extension, follow Adobe’s
+manual CEP/PlayerDebugMode setup for your installed version. Windows
+SmartScreen warnings cannot be safely removed by changing script format;
+verify downloads came from https://github.com/theoaep/theo-engine/releases.
+
+EASY WAY — MAC FILE COPY INSTALLER
+----------------------------------
+1. Open Terminal in the TheoEngine folder.
+2. Run:
+     chmod +x "INSTALL THEOENGINE.command" "UNINSTALL THEOENGINE.command" installer/*.sh
+3. Double-click INSTALL THEOENGINE.command, or run it from Terminal.
+4. Restart After Effects and open Window > Extensions > TheoEngine.
+
+Mac CEP support and unsigned-extension behavior vary by Adobe version. The
+Mac installer only copies to ~/Library/Application Support/Adobe/CEP/extensions/com.theo.engine.
 
 
 WHAT THE INSTALLER CHANGES

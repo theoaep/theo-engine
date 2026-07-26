@@ -1,37 +1,42 @@
 @echo off
 setlocal EnableExtensions
-title TheoEngine - Setup Assistant
+title TheoEngine - File Copy Installer
 color 0B
-mode con: cols=68 lines=22 >nul 2>&1
+set "ROOT=%~dp0"
+set "SOURCE=%ROOT%extension"
+set "DEST=%APPDATA%\Adobe\CEP\extensions\com.theo.engine"
 
-cls
 echo.
 echo   ================================================================
-echo.
-echo                 T H E O   E N G I N E
-echo                 AFTER EFFECTS TOOLKIT
-echo.
+echo                    T H E O   E N G I N E
+echo                    FILE COPY INSTALLER
 echo   ================================================================
 echo.
-echo        Launching the TheoEngine setup assistant...
-echo        Follow the prompts to install the CEP panel.
+echo   This installer only copies TheoEngine files to your CEP folder.
+echo   It does not change the registry, download software, or require admin.
 echo.
-echo   ----------------------------------------------------------------
+if not exist "%SOURCE%\index.html" goto :missing
+if not exist "%SOURCE%\CSXS\manifest.xml" goto :missing
+
+if not exist "%DEST%" mkdir "%DEST%"
+robocopy "%SOURCE%" "%DEST%" /E /NFL /NDL /NJH /NJS /NP >nul
+if errorlevel 8 goto :copyerror
+
 echo.
+echo   [OK] TheoEngine files copied successfully.
+echo   Destination: %DEST%
+echo.
+echo   If After Effects does not show TheoEngine, enable CEP support
+echo   manually according to docs\INSTALL.txt, then restart After Effects.
+echo.
+pause
+exit /b 0
 
-powershell.exe -NoLogo -NoProfile -File "%~dp0installer\install.ps1"
-set "EXITCODE=%ERRORLEVEL%"
-
-if not "%EXITCODE%"=="0" (
-  echo.
-  echo   [X] TheoEngine installer returned an error.
-  echo       If Windows blocked the script, see docs\INSTALL.txt.
-  echo.
-  pause
-) else (
-  echo.
-  echo   TheoEngine setup assistant finished.
-  echo.
-)
-
-exit /b %EXITCODE%
+:missing
+echo   [X] The extension folder is missing. Keep this file beside extension\.
+pause
+exit /b 1
+:copyerror
+echo   [X] Could not copy the extension. Close After Effects and retry.
+pause
+exit /b 1
