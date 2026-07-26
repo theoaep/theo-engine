@@ -2,7 +2,7 @@
 (function () {
   "use strict";
   const $ = (id) => document.getElementById(id);
-  const VERSION = "1.1.1";
+  const VERSION = "1.1.3";
   const API = "https://api.github.com/repos/theoaep/theo-engine/releases/latest";
   const REPO = "https://github.com/theoaep/theo-engine";
   let latestUrl = REPO;

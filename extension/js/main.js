@@ -66,7 +66,7 @@
 
   /* ── update check ────────────────────────────────────── */
   // Bump this on every release; keep it equal to CSXS/manifest.xml ExtensionBundleVersion.
-  const CURRENT_VERSION = "1.1.1";
+  const CURRENT_VERSION = "1.1.3";
   // Where "the latest version" lives. Pick ONE (see README → Releasing):
   //   • GitHub Releases API:  https://api.github.com/repos/<user>/theo-engine/releases/latest
   //   • A JSON you host:      https://<your-site>/version.json   → { "version":"1.1.0", "notes":"…", "url":"…" }
