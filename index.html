@@ -13,7 +13,7 @@
   <div id="intro" class="intro">
     <div id="nameStep" class="intro-step hidden">
       <div class="intro-kicker">welcome to</div>
-      <div class="intro-logo">THEO<span>REVERSE</span></div>
+      <div class="intro-logo">THEO<span>ENGINE</span></div>
       <input id="nameInput" type="text" placeholder="type your name" maxlength="24"
              autocomplete="off" spellcheck="false"/>
       <div class="intro-hint">press enter</div>
@@ -27,21 +27,23 @@
   <div id="shell">
     <!-- ── SIDEBAR ─────────────────────────────────────── -->
     <nav id="rail">
-      <button class="rail-btn" data-nav="ai"   title="AI assistant"><span class="rail-ico">✦</span><span class="rail-lab">AI</span></button>
-      <button class="rail-btn" data-nav="kit"  title="Toolkit"><span class="rail-ico">⚡</span><span class="rail-lab">Kit</span></button>
-      <button class="rail-btn" data-nav="presets" title="Presets"><span class="rail-ico">▦</span><span class="rail-lab">Presets</span></button>
-      <button class="rail-btn" data-nav="projects" title="Project library"><span class="rail-ico">❒</span><span class="rail-lab">Projects</span></button>
-      <button class="rail-btn" data-nav="browsing" title="Browsing"><span class="rail-ico">◉</span><span class="rail-lab">Browse</span></button>
-      <button class="rail-btn" data-nav="graph" title="Graph editor"><span class="rail-ico">∿</span><span class="rail-lab">Graph</span></button>
-      <button class="rail-btn" data-nav="text" title="Text animations"><span class="rail-ico">T</span><span class="rail-lab">Text</span></button>
+      <button class="rail-btn" data-nav="main" title="Main" data-i18n-title="Main"><span class="rail-ico">✦</span><span class="rail-lab" data-i18n="Main">Main</span></button>
+      <button class="rail-btn" data-nav="ai" title="AI assistant"><span class="rail-ico">✧</span><span class="rail-lab" data-i18n="AI">AI</span></button>
+      <button class="rail-btn" data-nav="kit"  title="Toolkit"><span class="rail-ico">⚡</span><span class="rail-lab" data-i18n="Kit">Kit</span></button>
+      <button class="rail-btn" data-nav="presets" title="Presets"><span class="rail-ico">▦</span><span class="rail-lab" data-i18n="Presets">Presets</span></button>
+      <button class="rail-btn" data-nav="projects" title="Project library"><span class="rail-ico">❒</span><span class="rail-lab" data-i18n="Projects">Projects</span></button>
+      <button class="rail-btn" data-nav="browsing" title="Browsing"><span class="rail-ico">◉</span><span class="rail-lab" data-i18n="Browse">Browse</span></button>
+      <button class="rail-btn" data-nav="graph" title="Graph editor"><span class="rail-ico">∿</span><span class="rail-lab" data-i18n="Graph">Graph</span></button>
+      <button class="rail-btn" data-nav="text" title="Text animations"><span class="rail-ico">T</span><span class="rail-lab" data-i18n="Text">Text</span></button>
     </nav>
 
     <div id="app">
       <header class="topbar">
-        <div class="brand">THEO<span class="accent">REVERSE</span></div>
+        <div class="brand">THEO<span class="accent">ENGINE</span></div>
         <div class="top-right">
           <span id="liveCount" class="live-count hidden"><span class="live-dot"></span><span id="liveNum">0</span> online</span>
           <button id="who" class="chip" type="button" title="change name"></button>
+          <button id="settingsOpen" class="settings-open" type="button" title="Settings" aria-label="Settings">⚙</button>
           <div class="status"><span id="dot" class="dot"></span><span id="hostinfo">connecting…</span></div>
         </div>
       </header>
@@ -54,16 +56,26 @@
         <button id="updateSkip" class="update-skip" type="button" title="hide until the next version">Skip</button>
       </div>
 
-      <!-- ══ VIEW: AI ═══════════════════════════════════ -->
+      <section class="view" id="view-main">
+        <div class="main-hero card">
+          <div class="main-spark">✦</div><p class="main-kicker">THEOENGINE</p>
+          <h1 class="main-title">Make your edit <span>move.</span></h1>
+          <p class="hint" data-i18n="Your creative toolkit for faster After Effects workflows.">Your creative toolkit for faster After Effects workflows.</p>
+          <div class="main-version"><b>v1.1.1</b><span id="mainStatus">Checking for updates…</span></div>
+        </div>
+          <div class="card main-release"><div><h2 data-i18n="What’s new">What’s new</h2><p id="mainNotes" class="hint">Precomp Each timing fixes, settings, interaction polish, and TheoEngine branding.</p></div><button id="mainCheck" class="mini" type="button" data-i18n="Check version">Check version</button><button id="mainDownload" class="ghost" type="button" data-i18n="Open TheoEngine download page">Open TheoEngine download page</button></div>
+      </section>
+
       <section class="view" id="view-ai">
         <div id="aiSetup" class="card ai-setup hidden">
-          <h2 class="ai-h">Editing Bot setup</h2>
-          <p id="keyHint" class="small muted">Paste your free Google AI Studio key (starts AIzaSy…). It stays on your machine.</p>
+          <h2 class="ai-h" data-i18n="Editing Bot setup">Editing Bot setup</h2>
+          <p id="keyHint" class="small muted">Get your Gemini key in 4 quick steps:</p>
+          <ol class="key-steps"><li>Open Google AI Studio.</li><li>Sign in with Google.</li><li>Choose <b>Create API key</b>.</li><li>Copy the key and paste it below.</li></ol>
           <div class="prov-row">
             <input id="userKey" type="password" placeholder="AIzaSy…" spellcheck="false"/>
             <button id="keySave" class="mini" type="button">Save</button>
           </div>
-          <a href="#" id="keyLink" class="getkey">get a free key ↗</a>
+          <a href="#" id="keyLink" class="getkey">Open Google AI Studio →</a>
           <div id="keyStatus" class="prov-status"></div>
         </div>
 
@@ -109,11 +121,11 @@
         </div>
 
         <div class="browse-grid">
-          <button class="browse-btn yt active" data-url="https://www.youtube.com" data-pop="https://www.youtube.com" type="button">
-            <span class="browse-ico">▶</span><span><b>YouTube</b><small>watch edits/tutorials</small></span>
+          <button class="browse-btn yt locked" aria-disabled="true" type="button">
+            <span class="browse-ico">🔒</span><span><b>YouTube</b><small>COMING SOON</small></span>
           </button>
-          <button class="browse-btn tk" data-url="https://www.tiktok.com" data-pop="https://www.tiktok.com" type="button">
-            <span class="browse-ico">♪</span><span><b>TikTok</b><small>login stays in panel cookies</small></span>
+          <button class="browse-btn tk locked" aria-disabled="true" type="button">
+            <span class="browse-ico">🔒</span><span><b>TikTok</b><small>COMING SOON</small></span>
           </button>
           <button class="browse-btn tg" data-url="https://web.telegram.org/k/" data-pop="https://web.telegram.org/k/" type="button">
             <span class="browse-ico">✈</span><span><b>Telegram</b><small>web chats in panel</small></span>
@@ -213,11 +225,21 @@
     </div>
   </div>
 
-  <div id="toast" class="toast"></div>
+  <div id="settingsModal" class="settings-modal hidden" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+    <div class="settings-card">
+      <div class="settings-head"><div><h2 id="settingsTitle">Settings</h2><p class="hint" id="settingsHint">Personalize your panel.</p></div><button id="settingsClose" class="settings-close" type="button" aria-label="Close">×</button></div>
+      <label class="settings-label" for="settingsName">Your name<input id="settingsName" type="text" maxlength="24" autocomplete="off" spellcheck="false"/></label>
+      <div class="settings-label">Accent colors<div class="color-row"><label><span id="color1Label">Primary</span><input id="color1" type="color"/></label><label><span id="color2Label">Accent</span><input id="color2" type="color"/></label><label><span id="color3Label">Highlight</span><input id="color3" type="color"/></label></div></div>
+      <div class="settings-label"><span id="languageLabel">Language</span><div id="languageGrid" class="language-grid"></div></div>
+      <div class="settings-actions"><button id="settingsReset" class="ghost" type="button">Reset colors</button><button id="settingsSave" class="mini" type="button">Save</button></div>
+    </div>
+  </div>
 
   <script src="./js/CSInterface.js"></script>
   <script src="./js/clickfx.js"></script>
   <script src="./js/main.js"></script>
+  <script src="./js/settings.js"></script>
+  <script src="./js/mainview.js"></script>
   <script src="./js/toolkit.js"></script>
   <script src="./js/textanims.js"></script>
   <script src="./js/graph.js"></script>

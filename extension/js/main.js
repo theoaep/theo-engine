@@ -5,6 +5,13 @@
   const cs = new CSInterface();
   const $ = (id) => document.getElementById(id);
   const body = document.body;
+  // Keep the CEP panel from exposing the browser context menu or allowing
+  // accidental text dragging/selection. Form fields remain usable below.
+  document.addEventListener("contextmenu", (e) => e.preventDefault());
+  document.addEventListener("dragstart", (e) => e.preventDefault());
+  document.addEventListener("selectstart", (e) => {
+    if (!e.target.closest("input, textarea, [contenteditable='true']")) e.preventDefault();
+  });
   const LS_NAME = "tr_name";
   const LS_VIEW = "tr_view";
   const DEFAULT_COLORS = { g1: "#8b5cf6", g2: "#ec4899", g3: "#f59e0b" };
@@ -49,7 +56,7 @@
   /* ── nav rail ────────────────────────────────────────── */
   document.querySelectorAll(".rail-btn").forEach((b) =>
     b.addEventListener("click", () => showView(b.dataset.nav)));
-  showView(localStorage.getItem(LS_VIEW) || "ai");
+  showView(localStorage.getItem(LS_VIEW) || "main");
 
   /* ── host ping ───────────────────────────────────────── */
   evalJSX("theoReverse_ping()").then((r) => {
@@ -64,6 +71,7 @@
   //   • GitHub Releases API:  https://api.github.com/repos/<user>/theo-engine/releases/latest
   //   • A JSON you host:      https://<your-site>/version.json   → { "version":"1.1.0", "notes":"…", "url":"…" }
   const UPDATE_URL = "https://api.github.com/repos/theoaep/theo-engine/releases/latest";
+  const REPO_URL = "https://github.com/theoaep/theo-engine";
 
   function verParts(v) {
     return String(v == null ? "0" : v).replace(/^v/i, "").trim()
@@ -92,7 +100,7 @@
         const latest = String(j.version || j.tag_name || "").replace(/^v/i, "").trim();
         if (!latest || !isNewer(latest, CURRENT_VERSION)) return;
         if (localStorage.getItem("tr_update_skip") === latest) return;   // user dismissed this one
-        const url = j.url || j.html_url || UPDATE_URL;
+        const url = REPO_URL;
         const notes = String(j.notes || j.body || "").split("\n")[0].replace(/[#*_`>\-]/g, "").trim().slice(0, 70);
         showUpdateBar(latest, notes, url);
       })

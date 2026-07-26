@@ -57,7 +57,7 @@
     if (btn) setActive(btn);
   }
 
-  document.querySelectorAll(".browse-btn").forEach((btn) => {
+  document.querySelectorAll(".browse-btn:not(.locked)").forEach((btn) => {
     btn.addEventListener("click", () => load(btn.dataset.url, btn.dataset.pop, btn));
   });
 

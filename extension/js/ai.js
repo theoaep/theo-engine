@@ -701,8 +701,8 @@
   }
   function syncSetupUI() {
     const k = $("userKey"); if (k) { k.value = getKeyFor("gemini"); k.placeholder = "AIzaSy…"; }
-    if ($("keyHint")) $("keyHint").textContent = "Paste your free Google AI Studio key (starts AIzaSy…). It stays on your machine.";
-    if ($("keyLink")) $("keyLink").textContent = "get a free key ↗";
+    if ($("keyHint")) $("keyHint").textContent = "Get your Gemini key in 4 quick steps: 1) Open Google AI Studio. 2) Sign in. 3) Click Create API key. 4) Paste it below. It stays on your machine.";
+    if ($("keyLink")) $("keyLink").textContent = "Open Google AI Studio →";
   }
 
   function showSetup(note) {

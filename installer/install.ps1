@@ -16,13 +16,15 @@ $Reset = "$Esc[0m"
 function Write-Banner {
     Clear-Host
     Write-Host ""
-    Write-Host "$Pink  +----------------------------------------------------+$Reset"
-    Write-Host "$Pink  |$Reset$Cyan   TTTTT  H   H  EEEEE   OOO      REVERSE           $Pink|$Reset"
-    Write-Host "$Pink  |$Reset$Cyan     T    H   H  E      O   O                       $Pink|$Reset"
-    Write-Host "$Pink  |$Reset$Cyan     T    HHHHH  EEEE   O   O    AFTER EFFECTS      $Pink|$Reset"
-    Write-Host "$Pink  |$Reset$Cyan     T    H   H  E      O   O    TOOLKIT            $Pink|$Reset"
-    Write-Host "$Pink  |$Reset$Cyan     T    H   H  EEEEE   OOO                        $Pink|$Reset"
-    Write-Host "$Pink  +----------------------------------------------------+$Reset"
+    Write-Host "$Pink  +====================================================+$Reset"
+    Write-Host "$Pink  |$Reset$Cyan          T H E O   E N G I N E                  $Pink|$Reset"
+    Write-Host "$Pink  |$Reset$Dim          AFTER EFFECTS CREATIVE TOOLKIT          $Pink|$Reset"
+    Write-Host "$Pink  |$Reset$Amber          INSTALLER  /  CEP PANEL                $Pink|$Reset"
+    Write-Host "$Pink  +====================================================+$Reset"
+    Write-Host ""
+    Write-Host "$Dim  ------------------------------------------------------$Reset"
+    Write-Host "$Cyan  TheoEngine$Reset  $Dim|$Reset  setup assistant"
+    Write-Host "$Dim  ------------------------------------------------------$Reset"
     Write-Host ""
 }
 
@@ -83,6 +85,7 @@ try {
     }
 
     Write-Host "$Cyan  Installing extension to:$Reset $Destination"
+    Write-Host "$Dim  Preservation mode: destination-only files are never deleted; localStorage, cookies, presets, and projects remain intact.$Reset"
     New-Item -ItemType Directory -Path $Destination -Force | Out-Null
     $robocopyArgs = @(
         $Source, $Destination,

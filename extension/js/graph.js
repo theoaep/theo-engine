@@ -23,6 +23,7 @@
   const Y_MIN = -0.45, Y_MAX = 1.45;   // vertical range drawn (allows overshoot)
   const PAD = 14;
   let dragging = 0;                    // 0 none, 1 = P1, 2 = P2
+  let lastStretchTone = 0;
 
   function cw() { return canvas.getBoundingClientRect().width; }
   function ch() { return canvas.getBoundingClientRect().height; }
@@ -111,7 +112,14 @@
   canvas.addEventListener("pointerdown", (e) => {
     const r = canvas.getBoundingClientRect();
     dragging = hit(e.clientX - r.left, e.clientY - r.top);
-    if (dragging) canvas.setPointerCapture(e.pointerId);
+    if (dragging) {
+      canvas.setPointerCapture(e.pointerId);
+      canvas.classList.add("is-grabbing");
+      if (window.TRFX) {
+        window.TRFX.tone();
+        window.TRFX.burst(e.clientX, e.clientY);
+      }
+    }
   });
   canvas.addEventListener("pointermove", (e) => {
     if (!dragging) return;
@@ -120,9 +128,16 @@
     nx = Math.max(0, Math.min(1, nx));
     ny = Math.max(Y_MIN, Math.min(Y_MAX, ny));
     if (dragging === 1) { x1 = nx; y1 = ny; } else { x2 = nx; y2 = ny; }
+    if (window.TRFX && performance.now() - lastStretchTone > 90) {
+      lastStretchTone = performance.now();
+      window.TRFX.tone("stretch");
+    }
     draw();
   });
-  ["pointerup", "pointercancel"].forEach((ev) => canvas.addEventListener(ev, () => { dragging = 0; }));
+  ["pointerup", "pointercancel"].forEach((ev) => canvas.addEventListener(ev, () => {
+    dragging = 0;
+    canvas.classList.remove("is-grabbing");
+  }));
 
   /* ── presets ─────────────────────────────────────────── */
   const loadUser = () => { try { return JSON.parse(localStorage.getItem(LS_PRESETS)) || []; } catch (e) { return []; } };

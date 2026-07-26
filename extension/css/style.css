@@ -1,4 +1,9 @@
-/* ── TheoEngine — toolkit styles ───────────────────────────────────── */
+body {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M6 3l10.8 10.8-5.1.8 3.2 5.4-2.2 1.2-3.1-5.4-3.1 4.1z' fill='%23fff' stroke='%238b5cf6' stroke-width='1.5'/%3E%3C/svg%3E") 3 2, auto;
+}
+button, a, .tool, .chip, input[type="color"] { cursor: pointer; }
+
+/* ... existing code ... */
 :root {
   --bg: #0a0a0f;
   --fg: #f2f2f7;
@@ -17,7 +22,22 @@
   --ease-io: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+.main-hero { position: relative; overflow: hidden; padding: 28px; background: radial-gradient(circle at 85% 15%, rgba(236,72,153,.22), transparent 38%), linear-gradient(135deg, rgba(139,92,246,.16), rgba(255,255,255,.035)); }
+.main-spark { position:absolute; right:28px; top:18px; font-size:48px; color:var(--g2); animation: mainFloat 2.8s ease-in-out infinite; }
+.main-kicker { color:var(--g2); letter-spacing:4px; font-weight:800; font-size:10px; }
+.main-title { margin-top:10px; font-size:29px; line-height:1.05; letter-spacing:-1px; }
+.main-title span { color:var(--g2); }
+.main-version { display:flex; gap:10px; align-items:center; margin-top:24px; color:var(--muted); }
+.main-version b { color:var(--fg); padding:5px 9px; border-radius:999px; background:rgba(255,255,255,.1); }
+.main-release { display:flex; align-items:center; justify-content:space-between; gap:14px; margin-top:12px; }
+.main-release h2 { font-size:15px; margin-bottom:4px; }
+@keyframes mainFloat { 50% { transform:translateY(-8px) rotate(8deg) scale(1.08); filter:drop-shadow(0 0 14px var(--g2)); } }
+
+/* Prevent selecting or dragging panel UI text. Inputs and textareas opt back
+   into selection so users can still edit and copy their own values. */
+body, button, label, h1, h2, h3, p, span, small, b, a { user-select: none; -webkit-user-select: none; }
+input, textarea, [contenteditable="true"] { user-select: text; -webkit-user-select: text; }
+img, svg { -webkit-user-drag: none; }
 
 html, body {
   height: 100%;
@@ -28,7 +48,8 @@ html, body {
   overflow: hidden;
 }
 
-.settings-open { border: 1px solid var(--border); background: rgba(255,255,255,.05); color: var(--muted); border-radius: 8px; width: 27px; height: 27px; cursor: pointer; font-size: 15px; }
+.key-steps { margin: 8px 0 12px 18px; color: var(--muted); font-size: 11px; line-height: 1.7; }
+.key-steps b { color: var(--fg); }
 .settings-open:hover { color: var(--fg); border-color: var(--g2); }
 .settings-modal { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; padding: 16px; background: rgba(0,0,0,.58); backdrop-filter: blur(10px); }
 .settings-modal.hidden { display: none; }
@@ -475,7 +496,8 @@ body::after  { background: radial-gradient(circle, var(--g2), transparent 62%); 
   background: rgba(0,0,0,0.30);
   border: 1px solid var(--border);
 }
-#gCanvas { display: block; width: 100%; height: 230px; touch-action: none; cursor: crosshair; }
+#gCanvas { display: block; width: 100%; height: 230px; touch-action: none; cursor: grab; }
+#gCanvas.is-grabbing, #gCanvas:active { cursor: grabbing; }
 .graph-read {
   margin-top: 8px; text-align: center;
   font-family: Consolas, monospace; font-size: 11px; color: var(--muted);
@@ -601,7 +623,16 @@ body::after  { background: radial-gradient(circle, var(--g2), transparent 62%); 
 .tool-tag.in { background: rgba(139,92,246,0.22); color: #c4b5fd; }
 .tool-tag.out { background: rgba(245,158,11,0.20); color: #fcd34d; }
 
-/* ── browsing view ───────────────────────────────────── */
+/* click particles and tactile press feedback */
+.fx-burst { position: fixed; z-index: 100; width: 1px; height: 1px; pointer-events: none; animation: burstFade 520ms ease-out forwards; }
+.fx-burst i { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: var(--g2); box-shadow: 0 0 8px var(--g2); transform: rotate(var(--a)) translateY(0); animation: burstParticle 520ms cubic-bezier(.2,.8,.2,1) forwards; }
+.fx-burst i:nth-child(3n) { background: var(--g3); box-shadow: 0 0 8px var(--g3); }
+@keyframes burstParticle { to { transform: rotate(var(--a)) translateY(var(--d)); opacity: 0; } }
+@keyframes burstFade { to { opacity: 0; } }
+.fx-press { animation: fxPress 280ms cubic-bezier(.2,.8,.2,1); }
+@keyframes fxPress { 40% { transform: scale(.96); filter: brightness(1.35); } }
+
+/* ... existing code ... */
 .browse-head {
   display: flex;
   align-items: center;
@@ -634,7 +665,9 @@ body::after  { background: radial-gradient(circle, var(--g2), transparent 62%); 
   transition: transform 140ms var(--ease-out), border-color 160ms ease, background 180ms ease;
 }
 .browse-btn:hover, .browse-btn.active { border-color: rgba(236,72,153,0.42); background: rgba(236,72,153,0.09); }
-.browse-btn:active { transform: scale(0.97); }
+.browse-btn.locked { position: relative; cursor: not-allowed; opacity: .7; filter: saturate(.45); }
+.browse-btn.locked:hover { border-color: var(--border); background: rgba(255,255,255,.04); transform: none; }
+.browse-btn.locked small { color: var(--g3); font-weight: 800; letter-spacing: 1px; }
 .browse-ico {
   flex: none;
   width: 34px;
@@ -926,6 +959,7 @@ input:focus { outline: 0; border-color: var(--g2); box-shadow: 0 0 0 3px rgba(23
   .greet span { animation: letterIn 200ms ease both; }
   .view.active, .view.active > * { animation-duration: 200ms; animation-delay: 0ms !important; }
   .rfx { display: none; }
+  .fx-burst { display: none; }
   .tool:hover, .tool:hover .tool-ico, .rail-btn.active, .hero:hover .hero-ico { transform: none; animation: none; }
   .node, .playbtn, .build, .ghost, .tappad, .chip, .tool, .rail-btn { transition-duration: 120ms; }
   /* text-anim previews go static */

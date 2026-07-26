@@ -3,6 +3,43 @@
   "use strict";
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  // Synthesized sounds keep the extension self-contained (no audio assets required).
+  let audioCtx;
+  function tone(type = "click") {
+    if (reduce) return;
+    try {
+      audioCtx ||= new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === "suspended") audioCtx.resume();
+      const now = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator(), gain = audioCtx.createGain();
+      const stretch = type === "stretch";
+      osc.type = stretch ? "sine" : "triangle";
+      osc.frequency.setValueAtTime(stretch ? 180 : 520, now);
+      osc.frequency.exponentialRampToValueAtTime(stretch ? 95 : 760, now + (stretch ? 0.16 : 0.055));
+      gain.gain.setValueAtTime(0.0001, now);
+      gain.gain.exponentialRampToValueAtTime(stretch ? 0.045 : 0.065, now + 0.008);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + (stretch ? 0.18 : 0.075));
+      osc.connect(gain).connect(audioCtx.destination);
+      osc.start(now); osc.stop(now + (stretch ? 0.2 : 0.09));
+    } catch (_) { /* decorative audio must never interrupt the UI */ }
+  }
+  window.TRFX = { tone, burst };
+
+  function burst(x, y) {
+    if (reduce) return;
+    const layer = document.createElement("div");
+    layer.className = "fx-burst";
+    layer.style.left = x + "px"; layer.style.top = y + "px";
+    for (let i = 0; i < 10; i++) {
+      const p = document.createElement("i");
+      p.style.setProperty("--a", (i * 36) + "deg");
+      p.style.setProperty("--d", (18 + Math.random() * 18) + "px");
+      layer.appendChild(p);
+    }
+    document.body.appendChild(layer);
+    layer.addEventListener("animationend", () => layer.remove(), { once: true });
+  }
+
   // elements that get a click ripple (tappad has its own richer effect → excluded)
   const RIPPLE = ".tool,.build,.hero,.mini,.ghost,.sendbtn,.playbtn,.rail-btn,.chip";
 
@@ -10,6 +47,12 @@
     if (reduce || e.button !== 0) return;
     const el = e.target.closest(RIPPLE);
     if (!el || el.disabled) return;
+    tone();
+    burst(e.clientX, e.clientY);
+    el.classList.remove("fx-press");
+    void el.offsetWidth;
+    el.classList.add("fx-press");
+    el.addEventListener("animationend", () => el.classList.remove("fx-press"), { once: true });
     const r = el.getBoundingClientRect();
     const d = Math.max(r.width, r.height) * 1.6;
     const rip = document.createElement("span");
