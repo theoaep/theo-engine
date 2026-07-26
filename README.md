@@ -104,14 +104,13 @@ Each open panel writes a timestamp every ~20s; the badge counts panels seen in t
 up stale entries. Left unset, the badge just stays hidden.
 
 ## Install (for users)
-Download the latest release ZIP, unzip it, and double-click **`INSTALL THEOENGINE.bat`**.
-The installer asks before enabling CEP `PlayerDebugMode` and copying the panel into
-`%APPDATA%\Adobe\CEP\extensions\com.theo.engine`. It only installs the local CEP panel;
-it does not install a browser or download external software. If Windows SmartScreen warns,
-verify the package came from the official release page before choosing **More info → Run anyway**.
+Download the latest release ZIP and unzip it. For the least restrictive/manual path, run **`INSTALL MANUAL THEOENGINE.bat`** and press Enter to use:
+`%APPDATA%\Adobe\CEP\extensions\com.theo.engine`, or enter another destination.
+The file-copy installers do not change the registry, download software, or require administrator access.
+If Windows SmartScreen warns, verify the package came from the official release page before choosing **More info → Run anyway**.
 
-If PowerShell blocks the launcher, see [docs/INSTALL.txt](docs/INSTALL.txt). Restart AE →
-**Window → Extensions → TheoEngine**.
+After copying, restart After Effects → **Window → Extensions → TheoEngine**. If the unsigned CEP panel is not listed, follow Adobe’s manual CEP support setup for your installed version.
+
 
 ## Releasing + "update available" banner
 On launch the panel checks `UPDATE_URL` (already wired to
