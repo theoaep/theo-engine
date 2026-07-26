@@ -1,0 +1,75 @@
+TheoEngine - install help (Windows + After Effects)
+======================================================
+
+EASY WAY
+--------
+1. Go to the main TheoEngine folder.
+2. Double-click:
+     INSTALL THEOENGINE.bat
+3. The branded installer asks:
+     Install TheoEngine for After Effects? [Y/N]
+4. Choose Y to install the panel. It clearly enables Adobe CEP PlayerDebugMode
+   for CSXS 9-12 because this is an unsigned CEP extension.
+5. It then separately asks:
+     Install Brave browser from the official Brave website? [Y/N]
+   Brave is optional. If accepted, it is downloaded only from:
+     https://laptop-updates.brave.com/latest/winx64
+6. Fully restart After Effects and open:
+     Window > Extensions > TheoEngine
+
+Keep the complete downloaded folder together. The launcher needs both the
+installer and extension folders beside it.
+
+
+IF POWERSHELL IS BLOCKED
+------------------------
+Open PowerShell in the main TheoEngine folder and run these commands:
+
+  Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+  .\installer\install.ps1
+
+This changes the policy only for that PowerShell window, not permanently.
+
+
+WHAT THE INSTALLER CHANGES
+--------------------------
+- Copies only the contents of the extension folder to:
+    %APPDATA%\Adobe\CEP\extensions\com.theo.engine
+- Sets PlayerDebugMode=1 under these current-user registry keys:
+    HKEY_CURRENT_USER\Software\Adobe\CSXS.9
+    HKEY_CURRENT_USER\Software\Adobe\CSXS.10
+    HKEY_CURRENT_USER\Software\Adobe\CSXS.11
+    HKEY_CURRENT_USER\Software\Adobe\CSXS.12
+- Only if you separately choose Y, downloads and runs Brave's official Windows
+  installer. It first checks whether Brave is already installed.
+
+Brave provides reliable external browsing. It does not replace Adobe CEP's
+embedded Chromium engine inside the panel.
+
+
+MANUAL EXTENSION INSTALL
+------------------------
+1. Copy the contents of the extension folder into a folder named:
+     com.theo.engine
+
+   Destination:
+     %APPDATA%\Adobe\CEP\extensions\com.theo.engine
+
+2. Enable PlayerDebugMode=1 for the applicable Adobe CSXS registry version.
+3. Fully restart After Effects.
+4. Open Window > Extensions > TheoEngine.
+
+
+UPDATING
+--------
+Double-click INSTALL THEOENGINE.bat again. It replaces the installed panel
+files. Brave remains optional and is skipped automatically if already installed.
+
+
+UNINSTALL
+---------
+Delete the com.theo.engine folder from:
+  %APPDATA%\Adobe\CEP\extensions
+
+Brave is a separate application. Uninstall it through Windows Settings > Apps
+if you no longer want it.

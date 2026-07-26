@@ -1,4 +1,4 @@
-/* THEO REVERSE — Fast Reverse view (beat tap, visualizer, build) */
+/* TheoEngine — Fast Reverse view (beat tap, visualizer, build) */
 (function () {
   "use strict";
 

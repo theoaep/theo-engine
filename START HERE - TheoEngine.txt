@@ -1,0 +1,14 @@
+TheoEngine
+============
+
+TO INSTALL:
+1. Double-click "INSTALL THEOENGINE.bat".
+2. Choose Y when asked to install the After Effects panel.
+3. Fully restart After Effects.
+4. Open Window > Extensions > TheoEngine.
+
+Brave is optional. The installer asks separately before downloading it.
+
+Need help? Open docs\INSTALL.txt.
+
+You do not need to open or change anything inside the extension or installer folders.

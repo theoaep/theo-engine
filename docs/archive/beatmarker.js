@@ -1,4 +1,4 @@
-/* THEO REVERSE — Tap Beatmarker: play comp audio in-panel, tap beats, drop comp markers */
+/* TheoEngine — Tap Beatmarker: play comp audio in-panel, tap beats, drop comp markers */
 (function () {
   "use strict";
 

@@ -1,0 +1,5 @@
+{
+  "version": "1.1.1",
+  "notes": "Precomp Each now moves all attributes and adjusts each precomp duration to the selected layer span.",
+  "url": "https://github.com/theoaep/theo-engine/releases/latest"
+}

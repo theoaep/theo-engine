@@ -7,7 +7,15 @@
   const body = document.body;
   const LS_NAME = "tr_name";
   const LS_VIEW = "tr_view";
+  const DEFAULT_COLORS = { g1: "#8b5cf6", g2: "#ec4899", g3: "#f59e0b" };
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function applyColors(colors) {
+    const c = Object.assign({}, DEFAULT_COLORS, colors || {});
+    const root = document.documentElement;
+    root.style.setProperty("--g1", c.g1); root.style.setProperty("--g2", c.g2); root.style.setProperty("--g3", c.g3);
+    root.style.setProperty("--glow", "0 0 22px " + c.g2 + "59");
+  }
+  try { applyColors(JSON.parse(localStorage.getItem("tr_settings_colors") || "{}")); } catch (e) { applyColors(DEFAULT_COLORS); }
 
   /* ── shared API for the other modules ────────────────── */
   const evalJSX = (call) => new Promise((res) => cs.evalScript(call, res));
@@ -33,7 +41,7 @@
   }
 
   window.TR = {
-    cs, evalJSX, toast, hideToast, showView, reduceMotion,
+    cs, evalJSX, toast, hideToast, showView, reduceMotion, applyColors, DEFAULT_COLORS,
     getName: () => localStorage.getItem(LS_NAME) || "",
     openURL: (u) => { try { cs.openURLInDefaultBrowser(u); } catch (e) { window.open(u); } }
   };

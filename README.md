@@ -1,10 +1,10 @@
-# THEO REVERSE — After Effects toolkit
+# TheoEngine — After Effects toolkit
 
-A CEP panel for football/TikTok editors: AI assistant, one-click editor tools, the Fast Reverse
-beat-tap reel builder, and a text-animation library. Installed via junction at
-`%APPDATA%\Adobe\CEP\extensions\com.theo.reverse` → this folder. **Restart AE to reload changes.**
+A CEP panel for football/TikTok editors: AI assistant, one-click editor tools, reverse preset
+library, browsing, and a text-animation library. The download has one obvious Windows launcher;
+the panel's internal files are kept together under `extension/`. **Restart AE after installing updates.**
 
-Open in AE: **Window → Extensions → THEO REVERSE**.
+Open in AE: **Window → Extensions → TheoEngine**.
 
 ## First launch
 Type your name once → every launch greets you by name. Click the **"hi, …"** chip to change it.
@@ -39,36 +39,30 @@ Type your name once → every launch greets you by name. Click the **"hi, …"**
   It reads your selected layer's current transform + the comp center so the values land right.
 
 ### ⚡ Kit — one-click tools
-- **Fast Reverse** (hero button) → opens the beat-tap reel builder (below).
-- **Tap Beatmarker** (hero button) → opens the marker tool: it auto-loads your **current comp's
-  audio** into the panel (or drop/click a file), you **play + tap Space/click** on each beat, then
-  **Drop N markers** writes composition markers onto your comp's timeline (frame-snapped, optional
-  "clear existing first"). Note: AE freezes scripting during its *own* preview, so the panel plays
-  the audio itself — tap to the panel's playback, and markers land at `layerStart + panel time`.
-- **Quick Reverse** — click **Choose .ffx** to pick your reverse preset (Twixtor + zooms baked in) via
-  a native file dialog — no typed paths. Select layers, hit apply: the preset lands on each layer
-  **auto-stretched to that layer's length**. The chosen file is remembered.
-- Tools grid — time-savers first: **Speed Ramp** (eased time-remap slow→fast→slow + Pixel Motion, one
-  click smooth ramp), **Beat Zoom** (a punch-in on *every comp marker* — drop beats with Tap Beatmarker,
-  select layer(s), and it zooms on each beat), **Flash** (a white flash transition at the playhead),
-  **Organize** (sorts every project item into Comps / Footage / Solids / Audio folders). Then:
+- **Reverse presets** is the streamlined reverse workflow. Click **Add preset** to
+  choose reverse `.ffx` files, then apply them to selected layers with automatic keyframe stretching.
+  Presets can be renamed or removed, and the library is remembered in localStorage.
+- Tools grid is grouped so the panel feels less random: **Custom** (users click **Add tool** / plus
+  and pick their favourite actions so they have their own mini panel), **Most used** (Speed Ramp, Beat Zoom, Flash,
+  Precomp Each), **Layer timing** (Split, Reverse, Freeze, Loop, Trim, Sequence), **Layer setup**
+  (Pixel Motion, Motion Blur, Fit to Comp, Center Anchor), and **Project** (Save Frame, Organize,
+  Adjustment Layer, Solid BG).
   **Save Frame** (📸 exports the current frame of the active comp to a PNG — a save
   dialog picks where; defaults to the project folder, named `<comp> f<frame>.png`), **Precomp Each**
-  (each selected layer → its own comp-sized precomp with all attributes moved in, timeline position
-  kept — like AE's Pre-compose "Move all attributes"), Split Layer, Reverse Layer, Freeze Frame, Loop Layer,
+  (each selected layer → its own Wizard-style precomp with all attributes moved in; the precomp keeps the
+  selected layer's original size, source timing, Time Remap values, and position while its duration matches
+  the visible layer span), Split Layer, Reverse Layer,
   Trim to Work Area, Sequence, Pixel Motion, Motion Blur, Fit to Comp, Center Anchor,
   Adjustment Layer, Solid BG.
 
-### Fast Reverse (inside Kit)
-1. Drop your funk track (optional) — live visualizer + bass glow; marking a beat while the song
-   plays **shakes the panel**.
-2. Tap the pad (or Space) on beats `1–8` then once more for `↻` = 9 taps. Live BPM readout.
-3. Pick the **Output** comp (e.g. Comp 1) — beats are added there aligned back-to-back from the
-   playhead; or Active comp / a new master comp.
-4. **Build Reel** — per beat: `TR_NN_src` (clip) → `TR_NN_twx` (Twixtor) → `TR_NN` (your
-   alternating `in.ffx`/`out.ffx`, keyframes stretched to the beat). 9th = repeat of beat 1.
-   Viewer tabs are auto-closed after the build; comps are filed into a **"THEO REVERSE beats"**
-   project folder.
+### ◉ Browsing — in-panel browser
+- Built-in buttons for **YouTube**, **TikTok**, and **Telegram** so editors can watch
+  references, use socials, or browse without leaving After Effects.
+- YouTube opens its normal site/search view, and the external-open button handles pages that the embedded browser cannot show.
+- The URL bar also works as a normal browser/search box, with **open outside** for sites that block iframe embedding.
+- **⛶ fullscreen** hides the quick buttons and expands the browser card inside the panel; press **↩** or **Esc** to go back.
+- Layout is responsive: browsing cards and Kit buttons use fluid grids/clamped sizes so resizing the panel stretches
+  controls instead of leaving awkward empty bars.
 
 ### ∿ Graph — ease curve editor
 Select **2+ keyframes** on a property in AE, then shape the curve on the canvas (drag the two
@@ -100,8 +94,7 @@ Tracking*. (*needs a text layer)
   title scenes, transition packs, or a starter template.
 
 ### Live "N online"
-The top bar shows how many people have the panel open right now (green pulse). It's opt-in: it only
-appears once `PRESENCE_URL` is set in [js/presence.js](js/presence.js). Setup (free, ~3 min, no server
+The live count is opt-in: it only appears once `PRESENCE_URL` is set in [extension/js/presence.js](extension/js/presence.js). Setup (free, ~3 min, no server
 code): create a **Firebase** project → add a **Realtime Database** → set its rules so `/presence` is
 public, then paste the database URL:
 ```json
@@ -111,29 +104,34 @@ Each open panel writes a timestamp every ~20s; the badge counts panels seen in t
 up stale entries. Left unset, the badge just stays hidden.
 
 ## Install (for users)
-Grab the latest release zip, unzip, and run **`install.bat`** — it enables unsigned extensions
-(`PlayerDebugMode`) and copies the panel into `%APPDATA%\Adobe\CEP\extensions\com.theo.reverse`.
-Restart AE → **Window → Extensions → THEO REVERSE**. Manual steps are in [INSTALL.txt](INSTALL.txt).
+Download the latest release ZIP, unzip it, and double-click **`INSTALL THEOENGINE.bat`**.
+The installer asks before enabling CEP `PlayerDebugMode` and copying the panel into
+`%APPDATA%\Adobe\CEP\extensions\com.theo.engine`. It then separately offers optional Brave
+installation from Brave's official Windows endpoint. Brave is for reliable external browsing and
+does not replace Adobe CEP's embedded Chromium engine.
+
+If PowerShell blocks the launcher, see [docs/INSTALL.txt](docs/INSTALL.txt). Restart AE →
+**Window → Extensions → TheoEngine**.
 
 ## Releasing + "update available" banner
 On launch the panel checks `UPDATE_URL` (already wired to
-`https://api.github.com/repos/theoaep/theo-reverse/releases/latest`) and, if a newer version is live,
+`https://api.github.com/repos/theoaep/theo-engine/releases/latest`) and, if a newer version is live,
 shows a banner: **"Update available · v1.1.0 — <note>"** with **Install** (opens the release page —
 zip + installers) and **Skip** (hides it until an even newer version). Skips are remembered in
 localStorage (`tr_update_skip`).
 
 **To ship a new version:**
 1. Bump the version in **both** places (keep them equal):
-   - `CSXS/manifest.xml` → `ExtensionBundleVersion` **and** the `<Extension … Version>`
-   - [js/main.js](js/main.js) → `CURRENT_VERSION`
+   - `extension/CSXS/manifest.xml` → `ExtensionBundleVersion` and the `<Extension … Version>`
+   - [extension/js/main.js](extension/js/main.js) → `CURRENT_VERSION`
 2. Commit + push.
 3. On GitHub → **Releases → Draft a new release** → tag `vX.Y.Z` → write a short description (its
-   first line becomes the banner note) → **Publish**. GitHub auto-attaches the source zip (which
-   already contains `install.bat` + `INSTALL.txt`); optionally attach a signed `.zxp` too.
+   first line becomes the banner note) → **Publish**. Attach a ZIP containing the repository root;
+   the root launcher and its `installer/` + `extension/` folders must remain together. GitHub's automatic
+   source ZIP is also installable.
 
-Everyone still on an older `CURRENT_VERSION` sees the banner on their next launch. The banner reads
-the release **tag** as the version and links to its page. (Alternative to GitHub Releases: host
-[version.json](version.json) somewhere and point `UPDATE_URL` at it — `{ "version", "notes", "url" }`.)
+(Alternative to GitHub Releases: host a `version.json` elsewhere and point `UPDATE_URL` at it —
+`{ "version", "notes", "url" }`.)
 
 **Optional — signed `.zxp`:** sign with Adobe's `ZXPSignCmd` (needs a cert.p12) so users can install
 with the **ZXP/UXP Installer** instead of the `.bat`. Not required — the `.bat` path works today.
@@ -145,14 +143,14 @@ with the **ZXP/UXP Installer** instead of the `.bat`. Not required — the `.bat
 
 ## Layout
 ```
-CSXS/manifest.xml      CEP manifest (AEFT, CEP 9+)
-index.html             shell: rail + views (AI / Kit / Fast / Text)
-css/style.css          all styles
-js/main.js             nav, intro/greeting, shared TR helpers
-js/fastreverse.js      beat tap, visualizer, build
-js/toolkit.js          quick reverse + tool grid
-js/textanims.js        text anim grid
-js/ai.js               Gemini/Claude chat, key setup, model picker, Flash fallback
-jsx/engine.jsx         ALL ExtendScript: build engine, tools, text anims, AI context
-py/ ranking/           reserved for the face-pipeline phases
+INSTALL THEOENGINE.bat  one obvious Windows installer launcher
+START HERE.txt            quick beginner instructions
+installer/install.ps1     installer implementation
+docs/INSTALL.txt          troubleshooting and manual installation
+extension/                CEP payload; keep this folder intact
+  CSXS/manifest.xml       CEP manifest (AEFT, CEP 9+)
+  index.html              panel shell
+  css/style.css           all styles
+  js/                     panel modules
+  jsx/engine.jsx          ExtendScript host engine
 ```

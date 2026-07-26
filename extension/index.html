@@ -42,6 +42,7 @@
         <div class="top-right">
           <span id="liveCount" class="live-count hidden"><span class="live-dot"></span><span id="liveNum">0</span> online</span>
           <button id="who" class="chip" type="button" title="change name"></button>
+          <button id="settingsOpen" class="settings-open" type="button" title="Settings" aria-label="Settings">⚙</button>
           <div class="status"><span id="dot" class="dot"></span><span id="hostinfo">connecting…</span></div>
         </div>
       </header>
@@ -215,9 +216,20 @@
 
   <div id="toast" class="toast"></div>
 
+  <div id="settingsModal" class="settings-modal hidden" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+    <div class="settings-card">
+      <div class="settings-head"><div><h2 id="settingsTitle">Settings</h2><p class="hint" id="settingsHint">Personalize your panel.</p></div><button id="settingsClose" class="settings-close" type="button" aria-label="Close">×</button></div>
+      <label class="settings-label" for="settingsName">Your name<input id="settingsName" type="text" maxlength="24" autocomplete="off" spellcheck="false"/></label>
+      <div class="settings-label">Accent colors<div class="color-row"><label><span id="color1Label">Primary</span><input id="color1" type="color"/></label><label><span id="color2Label">Accent</span><input id="color2" type="color"/></label><label><span id="color3Label">Highlight</span><input id="color3" type="color"/></label></div></div>
+      <div class="settings-label"><span id="languageLabel">Language</span><div id="languageGrid" class="language-grid"></div></div>
+      <div class="settings-actions"><button id="settingsReset" class="ghost" type="button">Reset colors</button><button id="settingsSave" class="mini" type="button">Save</button></div>
+    </div>
+  </div>
+
   <script src="./js/CSInterface.js"></script>
   <script src="./js/clickfx.js"></script>
   <script src="./js/main.js"></script>
+  <script src="./js/settings.js"></script>
   <script src="./js/toolkit.js"></script>
   <script src="./js/textanims.js"></script>
   <script src="./js/graph.js"></script>

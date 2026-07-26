@@ -28,7 +28,25 @@ html, body {
   overflow: hidden;
 }
 
-/* ── animated background field ───────────────────────── */
+.settings-open { border: 1px solid var(--border); background: rgba(255,255,255,.05); color: var(--muted); border-radius: 8px; width: 27px; height: 27px; cursor: pointer; font-size: 15px; }
+.settings-open:hover { color: var(--fg); border-color: var(--g2); }
+.settings-modal { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; padding: 16px; background: rgba(0,0,0,.58); backdrop-filter: blur(10px); }
+.settings-modal.hidden { display: none; }
+.settings-card { width: min(420px, 100%); max-height: 92vh; overflow: auto; padding: 20px; border: 1px solid var(--border); border-radius: 16px; background: rgba(18,18,26,.96); box-shadow: 0 18px 60px rgba(0,0,0,.45); }
+.settings-head { display:flex; justify-content:space-between; gap:12px; margin-bottom:18px; }
+.settings-head h2 { font-size:18px; }
+.settings-close { border:0; background:transparent; color:var(--muted); font-size:24px; cursor:pointer; line-height:1; }
+.settings-label { display:block; color:var(--muted); font-size:11px; margin-top:14px; }
+.settings-label input[type=text] { display:block; width:100%; margin-top:6px; padding:9px 11px; border:1px solid var(--border); border-radius:8px; background:rgba(255,255,255,.05); color:var(--fg); font:inherit; }
+.color-row { display:flex; gap:10px; margin-top:8px; }
+.color-row label { flex:1; font-size:10px; }
+.color-row input { display:block; width:100%; height:32px; margin-top:5px; border:1px solid var(--border); border-radius:7px; background:transparent; cursor:pointer; }
+.language-grid { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:7px; margin-top:8px; }
+.language-choice { display:flex; align-items:center; gap:7px; min-width:0; padding:8px; border:1px solid var(--border); border-radius:8px; background:rgba(255,255,255,.035); color:var(--muted); cursor:pointer; font:inherit; text-align:left; }
+.language-choice:hover, .language-choice.active { border-color:var(--g2); background:rgba(236,72,153,.12); color:var(--fg); }
+.language-choice span { font-size:16px; } .language-choice b { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.settings-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:20px; }
+
 body::before, body::after {
   content: "";
   position: fixed;
