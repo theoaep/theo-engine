@@ -3,11 +3,12 @@ TheoEngine - install help (Windows + After Effects)
 
 EASY WAY — WINDOWS FILE COPY INSTALLER
 --------------------------------------
-1. Double-click INSTALL THEOENGINE.bat.
-2. The installer copies only the extension files to:
+1. Right-click INSTALL THEOENGINE.bat.
+2. Choose "Run as administrator" and approve the Windows prompt.
+3. The installer copies only the extension files to:
      %APPDATA%\Adobe\CEP\extensions\com.theo.engine
-3. It does not change the registry, download software, or require admin.
-4. Restart After Effects and open Window > Extensions > TheoEngine.
+4. It does not change the registry or download software.
+5. Restart After Effects and open Window > Extensions > TheoEngine.
 
 If After Effects does not show an unsigned CEP extension, follow Adobe’s
 manual CEP/PlayerDebugMode setup for your installed version. Windows
