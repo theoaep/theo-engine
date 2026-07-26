@@ -40,18 +40,8 @@ function Read-YesNo([string]$Prompt) {
 function Write-Success([string]$Message) { Write-Host "$Green  [OK] $Message$Reset" }
 function Write-Failure([string]$Message) { Write-Host "$Red  [X] $Message$Reset" }
 
-function Test-BraveInstalled {
-    $roots = @($env:ProgramFiles, ${env:ProgramFiles(x86)}, $env:LOCALAPPDATA)
-    foreach ($root in $roots) {
-        if (-not $root) { continue }
-        $candidate = Join-Path $root 'BraveSoftware\Brave-Browser\Application\brave.exe'
-        if (Test-Path -LiteralPath $candidate -PathType Leaf) { return $candidate }
-    }
-    return $null
-}
-
 Write-Banner
-Write-Host "$Dim  This installer asks before making each change.$Reset"
+Write-Host "$Dim  Local TheoEngine CEP installer — no browser or external installer is used.$Reset"
 Write-Host "$Dim  CEP support requires PlayerDebugMode for this unsigned extension.$Reset"
 Write-Host ""
 
@@ -102,47 +92,11 @@ try {
 }
 
 Write-Host ""
-Write-Host "$Dim  Optional: Brave provides reliable external YouTube, TikTok, and Telegram browsing.$Reset"
-Write-Host "$Dim  It does not replace Adobe CEP's embedded browser engine.$Reset"
-
-if (Read-YesNo 'Install Brave browser from the official Brave website?') {
-    $existingBrave = Test-BraveInstalled
-    if ($existingBrave) {
-        Write-Success ("Brave is already installed at " + $existingBrave)
-    } else {
-        $BraveUrl = 'https://laptop-updates.brave.com/latest/winx64'
-        $BraveInstaller = Join-Path $env:TEMP 'BraveBrowserSetup.exe'
-        try {
-            Write-Host "$Cyan  Downloading Brave from the official Brave endpoint...$Reset"
-            Invoke-WebRequest -Uri $BraveUrl -OutFile $BraveInstaller -UseBasicParsing
-            if (-not (Test-Path -LiteralPath $BraveInstaller -PathType Leaf)) { throw 'The Brave installer was not downloaded.' }
-            if ((Get-Item -LiteralPath $BraveInstaller).Length -lt 100000) { throw 'The downloaded Brave installer is unexpectedly small.' }
-
-            Write-Host "$Cyan  Starting the Brave installer...$Reset"
-            $process = Start-Process -FilePath $BraveInstaller -PassThru -Wait
-            if ($process.ExitCode -ne 0) { throw "Brave installer exited with code $($process.ExitCode)." }
-
-            $installedBrave = Test-BraveInstalled
-            if ($installedBrave) { Write-Success 'Brave was installed successfully.' }
-            else { Write-Success 'Brave installer completed. Finish any prompts it opened if needed.' }
-        } catch {
-            Write-Failure ("Brave installation failed: " + $_.Exception.Message)
-            Write-Host "$Amber  TheoEngine is still installed and ready to use.$Reset"
-        } finally {
-            if (Test-Path -LiteralPath $BraveInstaller) { Remove-Item -LiteralPath $BraveInstaller -Force -ErrorAction SilentlyContinue }
-        }
-    }
-} else {
-    Write-Host "$Amber  Brave installation skipped. TheoEngine is still fully installed.$Reset"
-}
-
-Write-Host ""
 Write-Host "$Green  +----------------------------------------------------+$Reset"
-Write-Host "$Green  |                    [ CHECK ]                       |$Reset"
+Write-Host "$Green  |                 INSTALL COMPLETE                  |$Reset"
 Write-Host "$Green  +----------------------------------------------------+$Reset"
-Write-Host "$Green  You chose the best option - well, the only option.$Reset"
-Write-Host "$Green  There ain't no better extension.$Reset"
-Write-Host "$Pink  made by @theoaep on telegram$Reset"
+Write-Host "$Dim  TheoEngine only installs the local CEP panel.$Reset"
+Write-Host "$Dim  It does not install a browser or download external software.$Reset"
 Write-Host ""
 Write-Host "$Cyan  Next:$Reset"
 Write-Host "    1. Fully close After Effects if it is open."

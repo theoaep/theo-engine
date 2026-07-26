@@ -106,9 +106,9 @@ up stale entries. Left unset, the badge just stays hidden.
 ## Install (for users)
 Download the latest release ZIP, unzip it, and double-click **`INSTALL THEOENGINE.bat`**.
 The installer asks before enabling CEP `PlayerDebugMode` and copying the panel into
-`%APPDATA%\Adobe\CEP\extensions\com.theo.engine`. It then separately offers optional Brave
-installation from Brave's official Windows endpoint. Brave is for reliable external browsing and
-does not replace Adobe CEP's embedded Chromium engine.
+`%APPDATA%\Adobe\CEP\extensions\com.theo.engine`. It only installs the local CEP panel;
+it does not install a browser or download external software. If Windows SmartScreen warns,
+verify the package came from the official release page before choosing **More info → Run anyway**.
 
 If PowerShell blocks the launcher, see [docs/INSTALL.txt](docs/INSTALL.txt). Restart AE →
 **Window → Extensions → TheoEngine**.

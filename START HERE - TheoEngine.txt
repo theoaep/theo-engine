@@ -1,13 +1,16 @@
 TheoEngine
-============
+==========
 
 TO INSTALL:
 1. Double-click "INSTALL THEOENGINE.bat".
-2. Choose Y when asked to install the After Effects panel.
-3. Fully restart After Effects.
-4. Open Window > Extensions > TheoEngine.
+2. If Windows SmartScreen appears, verify the package came from the official TheoEngine GitHub release:
+   https://github.com/theoaep/theo-engine/releases
+   Then choose More info > Run anyway only if you trust the package.
+3. Choose Y when asked to install the After Effects panel.
+4. Fully restart After Effects.
+5. Open Window > Extensions > TheoEngine.
 
-Brave is optional. The installer asks separately before downloading it.
+The installer only copies the local CEP panel. It does not install a browser or download external software.
 
 Need help? Open docs\INSTALL.txt.
 

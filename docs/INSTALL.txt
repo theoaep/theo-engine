@@ -6,45 +6,33 @@ EASY WAY
 1. Go to the main TheoEngine folder.
 2. Double-click:
      INSTALL THEOENGINE.bat
-3. The branded installer asks:
+3. If Windows SmartScreen appears, verify the package came from:
+     https://github.com/theoaep/theo-engine/releases
+   Choose More info > Run anyway only if you trust the verified package.
+   The installer is unsigned, so SmartScreen may still display a warning.
+4. The branded installer asks:
      Install TheoEngine for After Effects? [Y/N]
-4. Choose Y to install the panel. It clearly enables Adobe CEP PlayerDebugMode
+5. Choose Y to install the panel. It enables Adobe CEP PlayerDebugMode
    for CSXS 9-12 because this is an unsigned CEP extension.
-5. It then separately asks:
-     Install Brave browser from the official Brave website? [Y/N]
-   Brave is optional. If accepted, it is downloaded only from:
-     https://laptop-updates.brave.com/latest/winx64
 6. Fully restart After Effects and open:
      Window > Extensions > TheoEngine
 
 Keep the complete downloaded folder together. The launcher needs both the
-installer and extension folders beside it.
-
-
-IF POWERSHELL IS BLOCKED
-------------------------
-Open PowerShell in the main TheoEngine folder and run these commands:
-
-  Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-  .\installer\install.ps1
-
-This changes the policy only for that PowerShell window, not permanently.
+installer and extension folders beside it. No browser or external software is
+installed.
 
 
 WHAT THE INSTALLER CHANGES
 --------------------------
 - Copies only the contents of the extension folder to:
     %APPDATA%\Adobe\CEP\extensions\com.theo.engine
+- Uses preservation mode: destination-only files are not deleted.
 - Sets PlayerDebugMode=1 under these current-user registry keys:
     HKEY_CURRENT_USER\Software\Adobe\CSXS.9
     HKEY_CURRENT_USER\Software\Adobe\CSXS.10
     HKEY_CURRENT_USER\Software\Adobe\CSXS.11
     HKEY_CURRENT_USER\Software\Adobe\CSXS.12
-- Only if you separately choose Y, downloads and runs Brave's official Windows
-  installer. It first checks whether Brave is already installed.
-
-Brave provides reliable external browsing. It does not replace Adobe CEP's
-embedded Chromium engine inside the panel.
+- Does not install a browser, download external software, or clear user data.
 
 
 MANUAL EXTENSION INSTALL
@@ -62,14 +50,11 @@ MANUAL EXTENSION INSTALL
 
 UPDATING
 --------
-Double-click INSTALL THEOENGINE.bat again. It replaces the installed panel
-files. Brave remains optional and is skipped automatically if already installed.
+Double-click INSTALL THEOENGINE.bat again. It updates the installed panel
+without deleting destination-only files or browser/localStorage user data.
 
 
 UNINSTALL
 ---------
 Delete the com.theo.engine folder from:
   %APPDATA%\Adobe\CEP\extensions
-
-Brave is a separate application. Uninstall it through Windows Settings > Apps
-if you no longer want it.
